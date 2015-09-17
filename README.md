@@ -58,5 +58,5 @@ Searching for a customer:
 Building the API
 ================
 
-./gradlew build
+	./gradlew build
 
