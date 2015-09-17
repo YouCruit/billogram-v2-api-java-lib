@@ -61,9 +61,11 @@ Developing the API
 ================
 
 Build
+
 	./gradlew build
 
 Release
+
 	./gradlew release
 
 
