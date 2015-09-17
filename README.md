@@ -49,6 +49,7 @@ Creating a new customer:
 	Customer customerWithAssignedId = customerClient.create(customer);
 
 Searching for a customer:
+
 	Search<CustomerFilterField, CustomerOrderField> search = new Search<>();
 	search.withFilter(FilterType.FIELD, CustomerFilterField.CUSTOMER_NO, customer.getCustomerNo().toString());
 	search.withOrder(SortDirection.ASCENDING, CustomerOrderField.CREATED_AT);
