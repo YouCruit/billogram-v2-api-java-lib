@@ -19,10 +19,12 @@ two methods "sync" and "async" from AbstractHttpClient.
 
 
 With Gradle:
+
 	compile 'com.youcruit:billogram-v2-api-java-lib:0.0.1' 
 	compile 'com.squareup.okhttp:okhttp:2.5.0' 
 
 With Maven:
+
 	<dependency>
 		<groupId>com.youcruit</groupId>
 		<artifactId>billogram-v2-api-java-lib</artifactId>
@@ -55,8 +57,13 @@ Searching for a customer:
 	search.withOrder(SortDirection.ASCENDING, CustomerOrderField.CREATED_AT);
 	final CustomerSearchResponse response = customerClient.search(search);
 
-Building the API
+Developing the API
 ================
 
+Build
 	./gradlew build
+
+Release
+	./gradlew release
+
 
