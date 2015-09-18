@@ -73,4 +73,19 @@ Please note that the tests will *NOT* work unless `BILLOGRAM_USERNAME` and `BILL
 
 Release
 -------
+
+**Prerequisites:**
+* gpg key *that exists on public pgp keyserver*.
+* $HOME/.gradle/gradle.properties with environment variables (if they don't exist
+  the release process will stop with an error detailing them)
+
+**Actually releasing**
+1. Release with gradle (builds and uploads archive)
+
         ./gradlew release
+2. Log in to Nexus https://oss.sonatype.org/#stagingRepositories
+3. Find the uploaded repository (called "youcruit-XXXX").
+4. Click it. Close it.
+5. Wait (~ 30 sec)
+6. Release it.
+7. Done
