@@ -75,11 +75,13 @@ Release
 -------
 
 **Prerequisites:**
+
 * gpg key *that exists on public pgp keyserver*.
 * $HOME/.gradle/gradle.properties with environment variables (if they don't exist
   the release process will stop with an error detailing them)
 
 **Actually releasing**
+
 1. Release with gradle (builds and uploads archive)
 
         ./gradlew release
