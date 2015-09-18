@@ -28,6 +28,11 @@ public abstract class AbstractHttpClient implements HttpClient {
 	return new GsonBuilder().excludeFieldsWithoutExposeAnnotation().create();
     }
 
+    protected static String getApiUrl(boolean sandbox) {
+	return sandbox ? API_SANDBOX_BASE_URL : API_BASE_URL;
+    }
+
+
     public URI pathToUri(String... pathSegments) {
 	return pathToUri(EMPTY_MAP, pathSegments);
     }

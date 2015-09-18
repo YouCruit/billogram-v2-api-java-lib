@@ -31,6 +31,10 @@ public class OkHttpBillogramClient extends AbstractHttpClient {
 	this(createOkClient(username, password), null, apiUrl);
     }
 
+    public OkHttpBillogramClient(String username, String password, boolean sandbox) {
+	this(createOkClient(username, password), null, getApiUrl(sandbox));
+    }
+
     private static OkHttpClient createOkClient(String username, String password) {
 	return new OkHttpClient().setAuthenticator(new BasicAuthenticator(username, password));
     }
