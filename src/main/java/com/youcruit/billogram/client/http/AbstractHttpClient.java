@@ -33,10 +33,12 @@ public abstract class AbstractHttpClient implements HttpClient {
     }
 
 
+    @SuppressWarnings("unchecked")
     public URI pathToUri(String... pathSegments) {
 	return pathToUri(EMPTY_MAP, pathSegments);
     }
 
+    @SuppressWarnings("unchecked")
     public URI pathToUri(Search search, String... pathSegments) {
 	if (search == null) {
 	    return pathToUri(EMPTY_MAP, pathSegments);
