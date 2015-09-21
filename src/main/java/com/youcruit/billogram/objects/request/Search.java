@@ -21,9 +21,6 @@ public class Search<F extends FilterField, O extends OrderField> {
     private SortDirection orderDirection;
 
     public Map<String, String> toQueryParameters() {
-
-
-
 	Map<String, String> queryParameters = new HashMap<>();
         queryParameters.put("page", String.valueOf(page));
         queryParameters.put("page_size", String.valueOf(pageSize));
