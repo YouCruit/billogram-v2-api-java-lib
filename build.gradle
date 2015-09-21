@@ -136,17 +136,6 @@ uploadArchives {
 	}
 }
 
-/*sourceSets {
-	main {
-		compileClasspath += configurations.provided
-		runtimeClasspath += configurations.provided
-	}
-	test {
-		compileClasspath += configurations.provided
-		runtimeClasspath += configurations.provided
-	}
-}*/
-
 createReleaseTag.dependsOn uploadArchives
 
 checkCommitNeeded.dependsOn checkReleaseConfig
