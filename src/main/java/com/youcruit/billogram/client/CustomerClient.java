@@ -31,14 +31,12 @@ public class CustomerClient extends AbstractRestClient<CustomerFilterField, Cust
         super.createAsync(fullCustomer, callback);
     }
 
-    @Override
-    public CustomerResponse get(String id) throws IOException {
-        return super.get(id);
+    public CustomerResponse get(Integer id) throws IOException {
+        return super.get(String.valueOf(id));
     }
 
-    @Override
-    public void getAsync(String id, BillogramCallback<CustomerResponse> callback) {
-        super.getAsync(id, callback);
+    public void getAsync(Integer id, BillogramCallback<CustomerResponse> callback) {
+        super.getAsync(String.valueOf(id), callback);
     }
 
     @Override
