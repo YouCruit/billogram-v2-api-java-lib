@@ -139,3 +139,13 @@ uploadArchives {
 createReleaseTag.dependsOn uploadArchives
 
 checkCommitNeeded.dependsOn checkReleaseConfig
+
+test {
+	[ "BILLOGRAM_USERNAME", "BILLOGRAM_PASSWORD" ].each { bill ->
+		if (project.hasProperty(bill)) {
+			jvmArgs "-D${bill}=${project.getProperty(bill)}"
+		} else if (!System.env[bill]) {
+			logger.warn("Didn't find ${bill} property. This means tests will probably fail")
+		}
+	}
+}
