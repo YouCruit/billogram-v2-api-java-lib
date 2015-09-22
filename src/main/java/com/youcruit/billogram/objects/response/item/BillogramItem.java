@@ -24,7 +24,7 @@ public class BillogramItem {
     @Expose
     private Integer vat;
     @Expose
-    private Integer discount;
+    private BigDecimal discount;
     @SerializedName("regional_sweden")
     @Expose
     private RegionalSweden regionalSweden;
@@ -105,16 +105,16 @@ public class BillogramItem {
     }
 
 
-    public Integer getDiscount() {
+    public BigDecimal getDiscount() {
         return discount;
     }
 
 
-    public void setDiscount(Integer discount) {
+    public void setDiscount(BigDecimal discount) {
         this.discount = discount;
     }
 
-    public BillogramItem withDiscount(Integer discount) {
+    public BillogramItem withDiscount(BigDecimal discount) {
         this.discount = discount;
         return this;
     }
