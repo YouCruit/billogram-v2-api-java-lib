@@ -32,7 +32,7 @@ public class BillogramIT extends HttpIT {
 
 	final Billogram billogram = new Billogram().withCustomer(new BillogramCustomer().withCustomerNo(customer
 		.getCustomerNo()));
-	final BillogramItem item = new BillogramItem().withCount(1).withDescription("foodesc").withDiscount(5)
+	final BillogramItem item = new BillogramItem().withCount(1).withDescription("foodesc").withDiscount(BigDecimal.valueOf(5))
 						      .withItemNo("34567");
 	item.withPrice(new BigDecimal("12345.25")).withTitle("titledesc").withUnit(Unit.UNIT).withVat(6);
 
