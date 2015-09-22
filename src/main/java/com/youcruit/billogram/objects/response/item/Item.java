@@ -43,7 +43,7 @@ public class Item extends BillogramItem {
     }
 
     @Override
-    public Item withDiscount(Integer discount) {
+    public Item withDiscount(BigDecimal discount) {
         return (Item) super.withDiscount(discount);
     }
 
