@@ -27,7 +27,7 @@ import okio.ByteString;
 public class BillogramClient extends AbstractRestClient<BillogramFilterField, BillogramOrderField, BillogramSearchResponse, BillogramResponse, Billogram> {
 
     public enum Command {
-	SEND("send"), SELL("sell"), COLLECT("collect"), WRITEOFF("writeoff");
+	SELL("sell"), COLLECT("collect"), WRITEOFF("writeoff");
 
 	public final String command;
 
@@ -37,7 +37,7 @@ public class BillogramClient extends AbstractRestClient<BillogramFilterField, Bi
     }
 
     public enum ResendCommand {
-	RESEND("resend"), REMIND("remind");
+	SEND("send"), RESEND("resend"), REMIND("remind");
 
 	public final String command;
 
