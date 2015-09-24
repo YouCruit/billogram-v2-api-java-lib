@@ -1,5 +1,7 @@
 package com.youcruit.billogram.objects.response.callback;
 
+import static java.util.Locale.US;
+
 import java.io.UnsupportedEncodingException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
@@ -69,8 +71,8 @@ public class CallbackPost {
         try {
             MessageDigest digest = MessageDigest.getInstance("MD5");
             digest.update(callbackId.getBytes("UTF-8"));
-            final String md5Digest = DatatypeConverter.printHexBinary(digest.digest(key));
-            return md5Digest.equals(signature);
+            final String md5Digest = DatatypeConverter.printHexBinary(digest.digest(key)).toLowerCase(US);
+            return md5Digest.equals(signature.toLowerCase(US));
         } catch (UnsupportedEncodingException |NoSuchAlgorithmException e) {
             // If UTF-8 or MD5 doesn't exist, JVM is broken
             throw new Error(e);
