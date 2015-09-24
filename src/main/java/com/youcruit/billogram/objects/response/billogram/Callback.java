@@ -6,9 +6,9 @@ import com.youcruit.billogram.objects.response.event.CallbackEvent;
 
 public class Callback {
     @Expose
-    CallbackBillogram billogram;
+    private CallbackBillogram billogram;
     @Expose
-    CallbackEvent event;
+    private CallbackEvent event;
     @Expose
     private String url;
     @SerializedName("sign_key")
@@ -16,13 +16,14 @@ public class Callback {
     private String signKey;
     @Expose
     private String custom;
+    @Expose
+    @SerializedName("callback_id")
+    private String callbackId;
 
-    
     public String getUrl() {
 	return url;
-    }
 
-    
+    }
     public void setUrl(String url) {
 	this.url = url;
     }
@@ -44,4 +45,33 @@ public class Callback {
     public void setCustom(String custom) {
 	this.custom = custom;
     }
+
+    public void verifySignature(String key) {
+
+    }
+
+    public CallbackBillogram getBillogram() {
+        return billogram;
+    }
+
+    public void setBillogram(CallbackBillogram billogram) {
+        this.billogram = billogram;
+    }
+
+    public CallbackEvent getEvent() {
+        return event;
+    }
+
+    public void setEvent(CallbackEvent event) {
+        this.event = event;
+    }
+
+    public String getCallbackId() {
+        return callbackId;
+    }
+
+    public void setCallbackId(String callbackId) {
+        this.callbackId = callbackId;
+    }
+
 }
