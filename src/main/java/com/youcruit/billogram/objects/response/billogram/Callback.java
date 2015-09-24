@@ -2,9 +2,13 @@ package com.youcruit.billogram.objects.response.billogram;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
+import com.youcruit.billogram.objects.response.event.CallbackEvent;
 
 public class Callback {
-
+    @Expose
+    CallbackBillogram billogram;
+    @Expose
+    CallbackEvent event;
     @Expose
     private String url;
     @SerializedName("sign_key")
