@@ -22,15 +22,13 @@ public class Event extends CallbackEvent {
 	return this;
     }
 
-    @Override
     public CallbackEvent withCreatedAt(Date createdAt) {
-	super.withCreatedAt(createdAt);
+	setCreatedAt(createdAt);
 	return this;
     }
 
-    @Override
     public CallbackEvent withType(BillogramEvent type) {
-	super.withType(type);
+	setType(type);
 	return this;
     }
 }
