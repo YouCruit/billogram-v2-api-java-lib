@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.net.URI;
 import java.util.Map;
 
+import com.google.gson.Gson;
 import com.youcruit.billogram.client.BillogramCallback;
 import com.youcruit.billogram.objects.request.Search;
 
@@ -27,4 +28,5 @@ public interface HttpClient {
 
     URI pathToUri(Map<String, String> queryParameters, String... pathSegments);
 
+    Gson getMapper();
 }

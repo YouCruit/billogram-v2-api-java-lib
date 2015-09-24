@@ -20,6 +20,7 @@ import com.youcruit.billogram.objects.request.billogram.ResendMethod;
 import com.youcruit.billogram.objects.response.billogram.Billogram;
 import com.youcruit.billogram.objects.response.billogram.BillogramResponse;
 import com.youcruit.billogram.objects.response.billogram.BillogramSearchResponse;
+import com.youcruit.billogram.objects.response.callback.CallbackPost;
 
 import okio.ByteString;
 
@@ -211,5 +212,9 @@ public class BillogramClient extends AbstractRestClient<BillogramFilterField, Bi
     @Override
     protected String getId(Billogram fullBillogram) {
 	return fullBillogram.getId();
+    }
+
+    public CallbackPost parseCallback(String json) {
+	return httpClient.getMapper().fromJson(json, CallbackPost.class);
     }
 }

@@ -71,4 +71,9 @@ public abstract class AbstractHttpClient implements HttpClient {
 	    throw new RuntimeException(e);
 	}
     }
+
+    @Override
+    public Gson getMapper() {
+	return gson;
+    }
 }
