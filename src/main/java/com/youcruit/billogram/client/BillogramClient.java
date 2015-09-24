@@ -16,7 +16,7 @@ import com.youcruit.billogram.objects.request.Search;
 import com.youcruit.billogram.objects.request.billogram.BillogramFilterField;
 import com.youcruit.billogram.objects.request.billogram.BillogramOrderField;
 import com.youcruit.billogram.objects.request.billogram.PdfResponse;
-import com.youcruit.billogram.objects.request.billogram.ResendMethod;
+import com.youcruit.billogram.objects.request.billogram.SendMethod;
 import com.youcruit.billogram.objects.response.billogram.Billogram;
 import com.youcruit.billogram.objects.response.billogram.BillogramResponse;
 import com.youcruit.billogram.objects.response.billogram.BillogramSearchResponse;
@@ -36,12 +36,12 @@ public class BillogramClient extends AbstractRestClient<BillogramFilterField, Bi
 	}
     }
 
-    public enum ResendCommand {
+    public enum SendCommand {
 	SEND("send"), RESEND("resend"), REMIND("remind");
 
 	public final String command;
 
-	ResendCommand(String command) {
+	SendCommand(String command) {
 	    this.command = command;
 	}
     }
@@ -107,15 +107,15 @@ public class BillogramClient extends AbstractRestClient<BillogramFilterField, Bi
 	httpClient.async(uri, null, POST, callback, BillogramResponse.class);
     }
 
-    public BillogramResponse command(String billogramId, ResendMethod resendMethod, ResendCommand command) throws IOException {
-	Map<String, ResendMethod> resendRequest = Collections.singletonMap("method", resendMethod);
+    public BillogramResponse command(String billogramId, SendMethod resendMethod, SendCommand command) throws IOException {
+	Map<String, SendMethod> resendRequest = Collections.singletonMap("method", resendMethod);
 	final URI uri = httpClient.pathToUri(endpoint, billogramId, "command", command.command);
 	return httpClient.sync(uri, resendRequest, POST, responseClass);
     }
 
 
-    public void commandAsync(String billogramId, ResendMethod resendMethod, ResendCommand command, BillogramCallback<BillogramResponse> callback) {
-	Map<String, ResendMethod> resendRequest = Collections.singletonMap("method", resendMethod);
+    public void commandAsync(String billogramId, SendMethod resendMethod, SendCommand command, BillogramCallback<BillogramResponse> callback) {
+	Map<String, SendMethod> resendRequest = Collections.singletonMap("method", resendMethod);
 	final URI uri = httpClient.pathToUri(endpoint, billogramId, "command", command.command);
 	httpClient.async(uri, resendRequest, POST, callback, BillogramResponse.class);
     }
