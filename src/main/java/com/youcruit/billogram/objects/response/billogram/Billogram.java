@@ -67,7 +67,7 @@ public class Billogram extends CompactBillogram {
     private BillogramCustomer customer;
 
     public Billogram withAttestedAt(Date attestedAt) {
-	super.withAttestedAt(attestedAt);
+	setAttestedAt(attestedAt);
 	return this;
     }
 
@@ -98,7 +98,7 @@ public class Billogram extends CompactBillogram {
     }
 
     public Billogram withState(BillogramState state) {
-	super.withState(state);
+	setState(state);
 	return this;
     }
 
@@ -142,7 +142,7 @@ public class Billogram extends CompactBillogram {
     }
 
     public Billogram withOcrNumber(String ocrNumber) {
-	super.withOcrNumber(ocrNumber);
+	setOcrNumber(ocrNumber);
 	return this;
     }
 
@@ -251,12 +251,12 @@ public class Billogram extends CompactBillogram {
     }
 
     public Billogram withTotalSum(BigDecimal totalSum) {
-	super.withTotalSum(totalSum);
+	setTotalSum(totalSum);
 	return this;
     }
 
     public Billogram withRemainingSum(BigDecimal remainingSum) {
-	super.withRemainingSum(remainingSum);
+	setRemainingSum(remainingSum);
 	return this;
     }
 
@@ -325,21 +325,18 @@ public class Billogram extends CompactBillogram {
 	return this;
     }
 
-    @Override
     public Billogram withId(String id) {
-        super.withId(id);
+        setId(id);
         return this;
     }
 
-    @Override
     public Billogram withCreatedAt(Date createdAt) {
-        super.withCreatedAt(createdAt);
+        setCreatedAt(createdAt);
         return this;
     }
 
-    @Override
     public Billogram withCurrency(String currency) {
-        super.withCurrency(currency);
+        setCurrency(currency);
         return this;
     }
 
@@ -356,40 +353,33 @@ public class Billogram extends CompactBillogram {
         return this;
     }
 
-    @Override
     public Billogram withDueDate(Date dueDate) {
-        super.withDueDate(dueDate);
+        setDueDate(dueDate);
         return this;
     }
 
-    @Override
     public Billogram withFlags(Set<BillogramFlag> flags) {
-        super.withFlags(flags);
+        setFlags(flags);
         return this;
     }
 
-    @Override
     public Billogram withUpdatedAt(Date updatedAt) {
-        super.withUpdatedAt(updatedAt);
+        setUpdatedAt(updatedAt);
         return this;
     }
 
-    @Override
     public Billogram withFlags(BillogramFlag... flags) {
-        super.withFlags(flags);
+        setFlags(flags);
         return this;
     }
 
-    @Override
     public Billogram withInvoiceDate(Date invoiceDate) {
-        super.withInvoiceDate(invoiceDate);
+        setInvoiceDate(invoiceDate);
         return this;
     }
 
-    @Override
     public Billogram withInvoiceNo(Integer invoiceNo) {
-        super.withInvoiceNo(invoiceNo);
+        setInvoiceNo(invoiceNo);
         return this;
     }
-
 }

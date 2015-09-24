@@ -27,12 +27,6 @@ public class Callback {
 	this.url = url;
     }
 
-    public Callback withUrl(String url) {
-	this.url = url;
-	return this;
-    }
-
-    
     public String getSignKey() {
 	return signKey;
     }
@@ -42,12 +36,6 @@ public class Callback {
 	this.signKey = signKey;
     }
 
-    public Callback withSignKey(String signKey) {
-	this.signKey = signKey;
-	return this;
-    }
-
-    
     public String getCustom() {
 	return custom;
     }
@@ -56,10 +44,4 @@ public class Callback {
     public void setCustom(String custom) {
 	this.custom = custom;
     }
-
-    public Callback withCustom(String custom) {
-	this.custom = custom;
-	return this;
-    }
-
 }

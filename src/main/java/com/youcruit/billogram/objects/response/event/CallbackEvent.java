@@ -24,21 +24,11 @@ public class CallbackEvent {
 	this.type = type;
     }
 
-    public CallbackEvent withType(BillogramEvent type) {
-	this.type = type;
-	return this;
-    }
-
     public Date getCreatedAt() {
 	return createdAt;
     }
 
     public void setCreatedAt(Date createdAt) {
 	this.createdAt = createdAt;
-    }
-
-    public CallbackEvent withCreatedAt(Date createdAt) {
-	this.createdAt = createdAt;
-	return this;
     }
 }

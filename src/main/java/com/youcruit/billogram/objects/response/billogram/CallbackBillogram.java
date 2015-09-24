@@ -37,22 +37,12 @@ public class CallbackBillogram {
 	this.id = id;
     }
 
-    public CallbackBillogram withId(String id) {
-	this.id = id;
-	return this;
-    }
-
     public String getOcrNumber() {
 	return ocrNumber;
     }
 
     public void setOcrNumber(String ocrNumber) {
 	this.ocrNumber = ocrNumber;
-    }
-
-    public CallbackBillogram withOcrNumber(String ocrNumber) {
-	this.ocrNumber = ocrNumber;
-	return this;
     }
 
     public BillogramState getState() {
@@ -63,22 +53,12 @@ public class CallbackBillogram {
 	this.state = state;
     }
 
-    public CallbackBillogram withState(BillogramState state) {
-	this.state = state;
-	return this;
-    }
-
     public BigDecimal getRemainingSum() {
 	return remainingSum;
     }
 
     public void setRemainingSum(BigDecimal remainingSum) {
 	this.remainingSum = remainingSum;
-    }
-
-    public CallbackBillogram withRemainingSum(BigDecimal remainingSum) {
-	this.remainingSum = remainingSum;
-	return this;
     }
 
     public BigDecimal getTotalSum() {
@@ -89,21 +69,11 @@ public class CallbackBillogram {
 	this.totalSum = totalSum;
     }
 
-    public CallbackBillogram withTotalSum(BigDecimal totalSum) {
-	this.totalSum = totalSum;
-	return this;
-    }
-
     public Date getAttestedAt() {
 	return attestedAt;
     }
 
     public void setAttestedAt(Date attestedAt) {
 	this.attestedAt = attestedAt;
-    }
-
-    public CallbackBillogram withAttestedAt(Date attestedAt) {
-	this.attestedAt = attestedAt;
-	return this;
     }
 }

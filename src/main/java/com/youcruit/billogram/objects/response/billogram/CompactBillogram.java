@@ -44,22 +44,12 @@ public abstract class CompactBillogram extends CallbackBillogram {
 	this.createdAt = createdAt;
     }
 
-    public CompactBillogram withCreatedAt(Date createdAt) {
-	this.createdAt = createdAt;
-	return this;
-    }
-
     public Date getUpdatedAt() {
 	return updatedAt;
     }
 
     public void setUpdatedAt(Date updatedAt) {
 	this.updatedAt = updatedAt;
-    }
-
-    public CompactBillogram withUpdatedAt(Date updatedAt) {
-	this.updatedAt = updatedAt;
-	return this;
     }
 
     public String getCurrency() {
@@ -70,22 +60,12 @@ public abstract class CompactBillogram extends CallbackBillogram {
 	this.currency = currency;
     }
 
-    public CompactBillogram withCurrency(String currency) {
-	this.currency = currency;
-	return this;
-    }
-
     public Date getDueDate() {
 	return dueDate;
     }
 
     public void setDueDate(Date dueDate) {
 	this.dueDate = dueDate;
-    }
-
-    public CompactBillogram withDueDate(Date dueDate) {
-	this.dueDate = dueDate;
-	return this;
     }
 
     public Date getInvoiceDate() {
@@ -96,11 +76,6 @@ public abstract class CompactBillogram extends CallbackBillogram {
 	this.invoiceDate = invoiceDate;
     }
 
-    public CompactBillogram withInvoiceDate(Date invoiceDate) {
-	this.invoiceDate = invoiceDate;
-	return this;
-    }
-
     public Integer getInvoiceNo() {
 	return invoiceNo;
     }
@@ -108,12 +83,6 @@ public abstract class CompactBillogram extends CallbackBillogram {
     public void setInvoiceNo(Integer invoiceNo) {
 	this.invoiceNo = invoiceNo;
     }
-
-    public CompactBillogram withInvoiceNo(Integer invoiceNo) {
-	this.invoiceNo = invoiceNo;
-	return this;
-    }
-
 
     public Set<BillogramFlag> getFlags() {
 	return flags;
@@ -123,13 +92,7 @@ public abstract class CompactBillogram extends CallbackBillogram {
 	this.flags = flags;
     }
 
-    public CompactBillogram withFlags(Set<BillogramFlag> flags) {
-	this.flags = flags;
-	return this;
-    }
-
-    public CompactBillogram withFlags(BillogramFlag... flags) {
-	this.flags.addAll(Arrays.asList(flags));
-	return this;
+    public void setFlags(BillogramFlag... flags) {
+        this.flags.addAll(Arrays.asList(flags));
     }
 }
