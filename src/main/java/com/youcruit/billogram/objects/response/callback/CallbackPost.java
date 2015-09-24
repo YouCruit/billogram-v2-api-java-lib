@@ -1,5 +1,11 @@
 package com.youcruit.billogram.objects.response.callback;
 
+import java.io.UnsupportedEncodingException;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+
+import javax.xml.bind.DatatypeConverter;
+
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 import com.youcruit.billogram.objects.response.billogram.CallbackBillogram;
@@ -27,22 +33,12 @@ public class CallbackPost {
 	this.billogram = billogram;
     }
 
-    public CallbackPost withBillogram(CallbackBillogram billogram) {
-	this.billogram = billogram;
-	return this;
-    }
-
     public CallbackEvent getEvent() {
 	return event;
     }
 
     public void setEvent(CallbackEvent event) {
 	this.event = event;
-    }
-
-    public CallbackPost withEvent(CallbackEvent event) {
-	this.event = event;
-	return this;
     }
 
     public String getCallbackId() {
@@ -53,22 +49,12 @@ public class CallbackPost {
 	this.callbackId = callbackId;
     }
 
-    public CallbackPost withCallbackId(String callbackId) {
-	this.callbackId = callbackId;
-	return this;
-    }
-
     public String getCustom() {
 	return custom;
     }
 
     public void setCustom(String custom) {
 	this.custom = custom;
-    }
-
-    public CallbackPost withCustom(String custom) {
-	this.custom = custom;
-	return this;
     }
 
     public String getSignature() {
@@ -79,8 +65,15 @@ public class CallbackPost {
 	this.signature = signature;
     }
 
-    public CallbackPost withSignature(String signature) {
-	this.signature = signature;
-	return this;
+    public boolean verifySignature(byte[] key) {
+        try {
+            MessageDigest digest = MessageDigest.getInstance("MD5");
+            digest.update(callbackId.getBytes("UTF-8"));
+            final String md5Digest = DatatypeConverter.printHexBinary(digest.digest(key));
+            return md5Digest.equals(signature);
+        } catch (UnsupportedEncodingException |NoSuchAlgorithmException e) {
+            // If UTF-8 or MD5 doesn't exist, JVM is broken
+            throw new Error(e);
+        }
     }
 }
