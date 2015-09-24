@@ -1,5 +1,11 @@
 package com.youcruit.billogram.objects.response.billogram;
 
+import java.io.UnsupportedEncodingException;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+
+import javax.xml.bind.DatatypeConverter;
+
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 import com.youcruit.billogram.objects.response.event.CallbackEvent;
@@ -74,4 +80,15 @@ public class Callback {
         this.callbackId = callbackId;
     }
 
+    public boolean verifySignature(byte[] key) {
+        try {
+            MessageDigest digest = MessageDigest.getInstance("MD5");
+            digest.update(callbackId.getBytes("UTF-8"));
+            final String md5Digest = DatatypeConverter.printHexBinary(digest.digest(key));
+            return md5Digest.equals(signKey);
+        } catch (UnsupportedEncodingException|NoSuchAlgorithmException e) {
+            // If UTF-8 or MD5 doesn't exist, JVM is broken
+            throw new Error(e);
+        }
+    }
 }
