@@ -5,7 +5,7 @@ import javax.xml.bind.DatatypeConverter;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class PdfResponse {
+public class PdfFile {
     @Expose
     @SerializedName("file_type")
     private String fileType;

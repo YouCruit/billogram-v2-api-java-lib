@@ -15,7 +15,7 @@ import com.youcruit.billogram.client.http.HttpClient;
 import com.youcruit.billogram.objects.request.Search;
 import com.youcruit.billogram.objects.request.billogram.BillogramFilterField;
 import com.youcruit.billogram.objects.request.billogram.BillogramOrderField;
-import com.youcruit.billogram.objects.request.billogram.PdfResponse;
+import com.youcruit.billogram.objects.request.billogram.PdfFileResponse;
 import com.youcruit.billogram.objects.request.billogram.SendMethod;
 import com.youcruit.billogram.objects.response.billogram.Billogram;
 import com.youcruit.billogram.objects.response.billogram.BillogramResponse;
@@ -176,18 +176,29 @@ public class BillogramClient extends AbstractRestClient<BillogramFilterField, Bi
 	httpClient.async(uri, body, POST, callback, BillogramResponse.class);
     }
 
-    public PdfResponse getPdf(String billogramId, String invoiceNo, String letterId) throws IOException {
+    public PdfFileResponse getPdf(String billogramId, String invoiceNo, String letterId) throws IOException {
 	Map<String, String> queryParameters = createPdfQueryParameter(invoiceNo, letterId);
 	final URI uri = httpClient.pathToUri(queryParameters, endpoint, billogramId + ".pdf");
-	return httpClient.sync(uri, null, GET, PdfResponse.class);
+	return httpClient.sync(uri, null, GET, PdfFileResponse.class);
     }
 
-    public void getPdf(String billogramId, String invoiceNo, String letterId, BillogramCallback<PdfResponse> callback) {
+    public void getPdf(String billogramId, String invoiceNo, String letterId, BillogramCallback<PdfFileResponse> callback) {
 	Map<String, String> queryParameters = createPdfQueryParameter(invoiceNo, letterId);
 	final URI uri = httpClient.pathToUri(queryParameters, endpoint, billogramId + ".pdf");
-	httpClient.async(uri, null, GET, callback, PdfResponse.class);
+	httpClient.async(uri, null, GET, callback, PdfFileResponse.class);
     }
 
+    public PdfFileResponse getPdfAttachment(String billogramId, String invoiceNo, String letterId) throws IOException {
+	Map<String, String> queryParameters = createPdfQueryParameter(invoiceNo, letterId);
+	final URI uri = httpClient.pathToUri(queryParameters, endpoint, billogramId + ".pdf");
+	return httpClient.sync(uri, null, GET, PdfFileResponse.class);
+    }
+
+    public void getPdfAttachment(String billogramId, String invoiceNo, String letterId, BillogramCallback<PdfFileResponse> callback) {
+	Map<String, String> queryParameters = createPdfQueryParameter(invoiceNo, letterId);
+	final URI uri = httpClient.pathToUri(queryParameters, endpoint, billogramId + ".pdf");
+	httpClient.async(uri, null, GET, callback, PdfFileResponse.class);
+    }
     private Map<String, String> createPdfQueryParameter(final String invoiceNo, final String letterId) {
 	Map<String, String> queryParameters = new HashMap<>();
 	if (invoiceNo != null) {
