@@ -190,13 +190,13 @@ public class BillogramClient extends AbstractRestClient<BillogramFilterField, Bi
 
     public PdfFileResponse getPdfAttachment(String billogramId, String invoiceNo, String letterId) throws IOException {
 	Map<String, String> queryParameters = createPdfQueryParameter(invoiceNo, letterId);
-	final URI uri = httpClient.pathToUri(queryParameters, endpoint, billogramId + ".pdf");
+	final URI uri = httpClient.pathToUri(queryParameters, endpoint, billogramId + "/attachment.pdf");
 	return httpClient.sync(uri, null, GET, PdfFileResponse.class);
     }
 
     public void getPdfAttachment(String billogramId, String invoiceNo, String letterId, BillogramCallback<PdfFileResponse> callback) {
 	Map<String, String> queryParameters = createPdfQueryParameter(invoiceNo, letterId);
-	final URI uri = httpClient.pathToUri(queryParameters, endpoint, billogramId + ".pdf");
+	final URI uri = httpClient.pathToUri(queryParameters, endpoint, billogramId + "/attachment.pdf");
 	httpClient.async(uri, null, GET, callback, PdfFileResponse.class);
     }
     private Map<String, String> createPdfQueryParameter(final String invoiceNo, final String letterId) {
