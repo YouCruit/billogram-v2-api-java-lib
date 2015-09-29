@@ -53,24 +53,24 @@ public class Search<F extends FilterField, O extends OrderField> {
 	this.pageSize = pageSize;
     }
 
-    public Search withPage(int page) {
+    public Search<F, O> withPage(int page) {
 	this.page = page;
 	return this;
     }
 
-    public Search withPageSize(int pageSize) {
+    public Search<F, O> withPageSize(int pageSize) {
 	this.pageSize = pageSize;
 	return this;
     }
 
-    public Search withFilter(FilterType filterType, FilterField filterField, String filterValue) {
+    public Search<F, O> withFilter(FilterType filterType, F filterField, String filterValue) {
 	this.filterType = filterType;
 	this.filterField = filterField.getFieldName();
 	this.filterValue = filterValue;
 	return this;
     }
 
-    public Search withOrder(SortDirection orderDirection, OrderField orderField) {
+    public Search<F, O> withOrder(SortDirection orderDirection, O orderField) {
 	this.orderDirection = orderDirection;
 	this.orderField = orderField.getFieldName();
 	return this;
