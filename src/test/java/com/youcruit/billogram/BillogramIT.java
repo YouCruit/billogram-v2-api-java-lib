@@ -36,7 +36,7 @@ public class BillogramIT extends HttpIT {
     }
 
     @Test
-    public void createRetrieve() throws IOException, InterruptedException {
+    public void createRetrieveAndSend() throws IOException, InterruptedException {
 	CustomerClient customerClient = new CustomerClient(client);
 	Customer customer = CustomerHelper.createCustomer(customerClient);
 
@@ -66,5 +66,23 @@ public class BillogramIT extends HttpIT {
 	}
 	assertNotNull(pdf);
 	assertTrue(pdf.getData().asByteArray().length != 0);
+    }
+
+
+    @Test
+    public void createRetrieveAndSell() throws IOException, InterruptedException {
+	CustomerClient customerClient = new CustomerClient(client);
+	Customer customer = CustomerHelper.createCustomer(customerClient);
+
+	final Billogram billogram = new Billogram().withCustomer(new BillogramCustomer().withCustomerNo(customer.getCustomerNo()));
+	final BillogramItem item = new BillogramItem().withCount(1).withDescription("foodesc").withDiscount(BigDecimal.valueOf(5)).withItemNo("34567");
+	item.withPrice(new BigDecimal("12345.25")).withTitle("titledesc").withUnit(Unit.UNIT).withVat(6);
+
+	billogram.getItems().add(item);
+	final Billogram billogram2 = billogramClient.create(billogram).getData();
+	billogram2.withCurrency("SEK");
+	final Billogram billogram3 = billogramClient.update(billogram2).getData();
+
+	billogramClient.command(billogram3.getId(), BillogramClient.Command.SELL);
     }
 }

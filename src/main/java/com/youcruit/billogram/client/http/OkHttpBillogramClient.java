@@ -3,6 +3,7 @@ package com.youcruit.billogram.client.http;
 import java.io.IOException;
 import java.net.Proxy;
 import java.net.URI;
+import java.util.Collections;
 import java.util.Map;
 
 import com.google.gson.Gson;
@@ -67,6 +68,9 @@ public class OkHttpBillogramClient extends AbstractHttpClient {
     private Request createRequest(URI uri, Object requestBody, HttpClient.Method method) {
 	Request.Builder requestBuilder = new Request.Builder().url(uri.toString());
 	RequestBody payload = null;
+	if (requestBody == null && method == Method.POST) {
+	    requestBody = Collections.emptyMap();
+	}
 	if (requestBody != null) {
 	    payload = RequestBody.create(JSON, gson.toJson(requestBody).getBytes(UTF8));
 	}
