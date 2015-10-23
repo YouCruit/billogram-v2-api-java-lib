@@ -21,7 +21,7 @@ two methods "sync" and "async" from AbstractHttpClient.
 With Gradle
 -----------
 
-        compile 'com.youcruit:billogram-v2-api-java-lib:0.99.1'
+        compile 'com.youcruit:billogram-v2-api-java-lib:0.99.3'
         compile 'com.squareup.okhttp:okhttp:2.5.0'
 
 With Maven
@@ -30,7 +30,7 @@ With Maven
         <dependency>
                 <groupId>com.youcruit</groupId>
                 <artifactId>billogram-v2-api-java-lib</artifactId>
-                <version>0.99.1</version>
+                <version>0.99.3</version>
         </dependency>
         <dependency>
                 <groupId>com.squareup.okhttp</groupId>
