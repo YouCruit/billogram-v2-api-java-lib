@@ -6,6 +6,8 @@ import java.net.URI;
 import java.util.Collections;
 import java.util.Map;
 
+import org.apache.log4j.Logger;
+
 import com.google.gson.Gson;
 import com.squareup.okhttp.Authenticator;
 import com.squareup.okhttp.Callback;
@@ -21,6 +23,8 @@ import com.youcruit.billogram.exception.ApiException;
 import com.youcruit.billogram.objects.response.error.ApiError;
 
 public class OkHttpBillogramClient extends AbstractHttpClient {
+    public static final Logger LOGGER = Logger.getLogger(OkHttpBillogramClient.class);
+
     private final OkHttpClient client;
     private static final MediaType JSON = MediaType.parse("application/json");
 
@@ -46,14 +50,17 @@ public class OkHttpBillogramClient extends AbstractHttpClient {
     }
 
     public <V> void async(URI uri, Object requestBody, HttpClient.Method method, BillogramCallback<V> callback, Class<V> responseClass) {
+	LOGGER.debug("Asynchronous request");
 	final Request request = createRequest(uri, requestBody, method);
 	client.newCall(request).enqueue(new CallbackWrapper<V>(callback, responseClass));
     }
 
     public <V> V sync(URI uri, Object requestBody, HttpClient.Method method, Class<V> responseClass) throws IOException {
+	LOGGER.debug("Synchronous request");
 	final Request request = createRequest(uri, requestBody, method);
 	final Response response = client.newCall(request).execute();
 	String responseJson = response.body().string();
+	LOGGER.trace(responseJson);
 	if (response.isSuccessful()) {
 	    if (Void.class.getName().equals(responseClass.getName())) {
 		return null;
@@ -72,7 +79,11 @@ public class OkHttpBillogramClient extends AbstractHttpClient {
 	    requestBody = Collections.emptyMap();
 	}
 	if (requestBody != null) {
-	    payload = RequestBody.create(JSON, gson.toJson(requestBody).getBytes(UTF8));
+	    String requestString = gson.toJson(requestBody);
+	    if (LOGGER.isTraceEnabled()) {
+		LOGGER.trace("Request json: " + requestString);
+	    }
+	    payload = RequestBody.create(JSON, requestString.getBytes(UTF8));
 	}
 	requestBuilder.method(method.name(), payload);
 	return requestBuilder.build();
@@ -98,6 +109,9 @@ public class OkHttpBillogramClient extends AbstractHttpClient {
 	    String responseJson = null;
 	    try {
 		responseJson = response.body().string();
+		if (LOGGER.isTraceEnabled()) {
+		    LOGGER.trace("Response json: " + responseJson);
+		}
 		if (response.isSuccessful()) {
 		    final V responseObject = gson.fromJson(responseJson, clazz);
 		    callbackDone = true;
