@@ -60,7 +60,9 @@ public class OkHttpBillogramClient extends AbstractHttpClient {
 	final Request request = createRequest(uri, requestBody, method);
 	final Response response = client.newCall(request).execute();
 	String responseJson = response.body().string();
-	LOGGER.trace(responseJson);
+	if (LOGGER.isTraceEnabled()) {
+	    LOGGER.trace("Response json: " + responseJson);
+	}
 	if (response.isSuccessful()) {
 	    if (Void.class.getName().equals(responseClass.getName())) {
 		return null;
