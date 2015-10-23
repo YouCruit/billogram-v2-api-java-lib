@@ -50,18 +50,16 @@ public class OkHttpBillogramClient extends AbstractHttpClient {
     }
 
     public <V> void async(URI uri, Object requestBody, HttpClient.Method method, BillogramCallback<V> callback, Class<V> responseClass) {
-	LOGGER.debug("Asynchronous request");
 	final Request request = createRequest(uri, requestBody, method);
 	client.newCall(request).enqueue(new CallbackWrapper<V>(callback, responseClass));
     }
 
     public <V> V sync(URI uri, Object requestBody, HttpClient.Method method, Class<V> responseClass) throws IOException {
-	LOGGER.debug("Synchronous request");
 	final Request request = createRequest(uri, requestBody, method);
 	final Response response = client.newCall(request).execute();
 	String responseJson = response.body().string();
 	if (LOGGER.isTraceEnabled()) {
-	    LOGGER.trace("Response json: " + responseJson);
+	    LOGGER.trace("Response json for " + uri + " : " + responseJson);
 	}
 	if (response.isSuccessful()) {
 	    if (Void.class.getName().equals(responseClass.getName())) {
@@ -82,8 +80,13 @@ public class OkHttpBillogramClient extends AbstractHttpClient {
 	}
 	if (requestBody != null) {
 	    String requestString = gson.toJson(requestBody);
-	    if (LOGGER.isTraceEnabled()) {
-		LOGGER.trace("Request json: " + requestString);
+	    if (LOGGER.isDebugEnabled()) {
+		StringBuilder sb = new StringBuilder("Request for ").append(uri);
+		LOGGER.debug(sb);
+		if (LOGGER.isTraceEnabled()) {
+		    sb.append(" : ").append(requestBody);
+		    LOGGER.trace(sb);
+		}
 	    }
 	    payload = RequestBody.create(JSON, requestString.getBytes(UTF8));
 	}
@@ -112,7 +115,7 @@ public class OkHttpBillogramClient extends AbstractHttpClient {
 	    try {
 		responseJson = response.body().string();
 		if (LOGGER.isTraceEnabled()) {
-		    LOGGER.trace("Response json: " + responseJson);
+		    LOGGER.trace("Response json for " + response.request().uri() + " (" + response.code() + "): " + responseJson);
 		}
 		if (response.isSuccessful()) {
 		    final V responseObject = gson.fromJson(responseJson, clazz);
