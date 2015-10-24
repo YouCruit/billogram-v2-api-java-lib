@@ -126,7 +126,15 @@ public class OkHttpBillogramClient extends AbstractHttpClient {
 		    callbackDone = true;
 		    callback.onSuccess(responseObject);
 		} else {
-		    final ApiError error = gson.fromJson(responseJson, ApiError.class);
+		    ApiError error;
+		    try {
+			error = gson.fromJson(responseJson, ApiError.class);
+		    } catch (RuntimeException e) {
+			error = new ApiError();
+			error.setData(new ErrorData());
+			error.getData().setMessage("Unpalatable response from request");
+		    }
+		    error.setHttpStatusCode(response.code());
 		    callbackDone = true;
 		    callback.onError(new ApiException(error));
 		}

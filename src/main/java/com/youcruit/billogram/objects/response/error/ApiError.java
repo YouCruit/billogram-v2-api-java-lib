@@ -7,6 +7,8 @@ public class ApiError {
     private BillogramErrors status;
     @Expose
     private ErrorData data;
+    @Expose(serialize = false, deserialize =  false)
+    private int httpStatusCode;
 
     public BillogramErrors getStatus() {
 	return status;
@@ -22,5 +24,13 @@ public class ApiError {
 
     public void setData(ErrorData data) {
 	this.data = data;
+    }
+
+    public void setHttpStatusCode(int httpStatusCode) {
+        this.httpStatusCode = httpStatusCode;
+    }
+
+    public int getHttpStatusCode() {
+        return httpStatusCode;
     }
 }
