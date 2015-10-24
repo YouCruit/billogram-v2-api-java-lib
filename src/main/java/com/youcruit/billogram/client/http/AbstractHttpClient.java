@@ -29,7 +29,7 @@ public abstract class AbstractHttpClient implements HttpClient {
 	this.gson = gson == null ? createGson() : gson;
     }
 
-    protected static Gson createGson() {
+    protected Gson createGson() {
 	return new GsonBuilder().excludeFieldsWithoutExposeAnnotation().create();
     }
 
