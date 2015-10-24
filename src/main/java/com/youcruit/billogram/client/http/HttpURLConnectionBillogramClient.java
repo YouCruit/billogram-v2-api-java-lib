@@ -5,6 +5,7 @@ import com.youcruit.billogram.client.BillogramCallback;
 import com.youcruit.billogram.exception.ApiException;
 import com.youcruit.billogram.objects.response.error.ApiError;
 import com.youcruit.billogram.objects.response.error.ErrorData;
+import org.apache.log4j.Logger;
 
 import javax.xml.bind.DatatypeConverter;
 import java.io.IOException;
@@ -12,9 +13,12 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.io.PrintStream;
+import java.io.Reader;
+import java.io.StringReader;
 import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
 import java.net.URI;
+import java.util.Scanner;
 
 public class HttpURLConnectionBillogramClient extends AbstractHttpClient {
     private static final String APPLICATION_JSON = "application/json";
@@ -23,6 +27,8 @@ public class HttpURLConnectionBillogramClient extends AbstractHttpClient {
 	private final String basicAuth;
 	private int connectionTimeout = 10000;
 	private int requestTimeout = 10000;
+
+	private static final Logger LOGGER = Logger.getLogger(HttpURLConnectionBillogramClient.class);
 
 	public HttpURLConnectionBillogramClient(String username, String password) {
 		this(username, password, null, null);
@@ -55,6 +61,14 @@ public class HttpURLConnectionBillogramClient extends AbstractHttpClient {
 	public <V> V sync(URI uri, Object requestBody, Method method, Class<V> responseClass) throws IOException {
 		HttpURLConnection connection = (HttpURLConnection) uri.toURL().openConnection();
 		connection.setRequestMethod(method.name());
+		if (LOGGER.isDebugEnabled()) {
+			StringBuilder sb = new StringBuilder(method.name() + " Request for ").append(uri);
+			LOGGER.debug(sb);
+			if (LOGGER.isTraceEnabled()) {
+				sb.append(" : ").append(requestBody);
+				LOGGER.trace(sb);
+			}
+		}
 		connection.setConnectTimeout(connectionTimeout);
 		connection.setReadTimeout(requestTimeout);
 		connection.setUseCaches(false);
@@ -65,28 +79,50 @@ public class HttpURLConnectionBillogramClient extends AbstractHttpClient {
 		int responseCode = connection.getResponseCode();
 		if (responseCode == 202 || responseCode == 204) {
 			return null;
-		} else if (responseCode >= 200 && responseCode < 300) {
-			if (Void.class.getName().equals(responseClass.getName())) {
-				return null;
-			}
-			try (InputStream is = connection.getInputStream()) {
-				return gson.fromJson(new InputStreamReader(is, UTF_8), responseClass);
-			}
 		} else {
-			try (InputStream is = connection.getErrorStream()) {
-				ApiError error;
-				try {
-					error = gson.fromJson(new InputStreamReader(is, UTF_8), ApiError.class);
-				} catch (RuntimeException e) {
-					e.printStackTrace();
-					error = new ApiError();
-					error.setData(new ErrorData());
-					error.getData().setMessage("Unpalatable response from request");
+			if (responseCode >= 200 && responseCode < 300) {
+				if (Void.class.getName().equals(responseClass.getName())) {
+					return null;
 				}
-				error.setHttpStatusCode(responseCode);
-				throw new ApiException(error);
+				try (InputStream is = connection.getInputStream()) {
+					final Reader reader;
+					reader = logAndGetReader(uri, is);
+					return gson.fromJson(reader, responseClass);
+				}
+			} else {
+				try (InputStream is = connection.getErrorStream()) {
+					ApiError error;
+					try {
+						final Reader reader = logAndGetReader(uri, is);
+						error = gson.fromJson(reader, ApiError.class);
+					} catch (RuntimeException e) {
+						LOGGER.warn(e.getMessage(), e);
+						error = new ApiError();
+						error.setData(new ErrorData());
+						error.getData().setMessage("Unpalatable response from request");
+					}
+					error.setHttpStatusCode(responseCode);
+					throw new ApiException(error);
+				}
 			}
 		}
+	}
+
+	private Reader logAndGetReader(URI uri, InputStream is) throws UnsupportedEncodingException {
+		Reader reader;
+		if (LOGGER.isTraceEnabled()) {
+            String responseJson = toString(is);
+            LOGGER.trace("Response json for " + uri + " : " + responseJson);
+            reader = new StringReader(responseJson);
+        } else {
+            reader = new InputStreamReader(is, UTF_8);
+        }
+		return reader;
+	}
+
+	private String toString(InputStream is) {
+		Scanner s = new Scanner(is, UTF_8).useDelimiter("\\A");
+		return s.hasNext() ? s.next() : "";
 	}
 
 	private void setRequestBody(HttpURLConnection connection, Object body) throws IOException {
