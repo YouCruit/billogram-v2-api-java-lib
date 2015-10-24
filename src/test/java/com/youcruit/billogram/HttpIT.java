@@ -10,6 +10,7 @@ import org.junit.runners.Parameterized;
 import org.junit.runners.Parameterized.Parameters;
 
 import com.youcruit.billogram.client.http.HttpClient;
+import com.youcruit.billogram.client.http.HttpURLConnectionBillogramClient;
 import com.youcruit.billogram.client.http.OkHttpBillogramClient;
 
 @RunWith(Parameterized.class)
@@ -21,7 +22,7 @@ public abstract class HttpIT {
 
     @Parameters
     public static Collection<Object[]> data() {
-	return asList(new Object[][] { { OkHttpBillogramClient.class } });
+	return asList(new Object[][] { { OkHttpBillogramClient.class }, { HttpURLConnectionBillogramClient.class } });
     }
 
     public HttpIT(Class<HttpClient> httpClientClass) {
@@ -31,8 +32,11 @@ public abstract class HttpIT {
     public HttpClient createClient(String username, String password) {
 	if (httpClientClass == OkHttpBillogramClient.class) {
 	    return new OkHttpBillogramClient(username, password, HttpClient.API_SANDBOX_BASE_URL);
-	}
+	} else if (httpClientClass == HttpURLConnectionBillogramClient.class) {
+		return new HttpURLConnectionBillogramClient(username, password, HttpClient.API_SANDBOX_BASE_URL);
+	} else {
 	throw new RuntimeException("Unknown client" + httpClientClass.getName());
+    }
     }
 
     public HttpClient createClient() {
