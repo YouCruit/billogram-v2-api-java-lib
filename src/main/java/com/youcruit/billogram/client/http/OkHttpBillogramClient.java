@@ -85,7 +85,7 @@ public class OkHttpBillogramClient extends AbstractHttpClient {
 	if (requestBody != null) {
 	    String requestString = gson.toJson(requestBody);
 	    if (LOGGER.isDebugEnabled()) {
-		StringBuilder sb = new StringBuilder("Request for ").append(uri);
+		StringBuilder sb = new StringBuilder(method.name()).append(" Request for ").append(uri);
 		LOGGER.debug(sb);
 		if (LOGGER.isTraceEnabled()) {
 		    sb.append(" : ").append(requestBody);
