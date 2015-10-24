@@ -14,7 +14,7 @@ Using the API
 =============================
 
 The exact dependencies will in the future depend on which http-implementation you want to use,
-but for now, okhttp is the only one implented. Implementing a new one is just a matter of implementing the
+but for now, okhttp is the only one implemented. Implementing a new one is just a matter of implementing the
 two methods "sync" and "async" from AbstractHttpClient.
 
 
