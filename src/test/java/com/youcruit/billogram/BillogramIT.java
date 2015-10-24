@@ -71,7 +71,6 @@ public class BillogramIT extends HttpIT {
 		if (e.getError().getStatus() != NOT_AVAILABLE_YET || attemptsLeft-- <= 0) {
 		    throw e;
 		}
-		System.err.println("Retrying against");
 		Thread.sleep(5000);
 	    }
 	}

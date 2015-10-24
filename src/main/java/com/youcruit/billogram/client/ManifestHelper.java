@@ -15,7 +15,6 @@ public class ManifestHelper {
                 try (InputStream is = url.openStream()) {
                     Manifest manifest = new Manifest(is);
                     String otherImplementationTitle = getAttribute(manifest, "Implementation-Title");
-                    System.err.println("URL: " + url + " - Title: " + otherImplementationTitle);
                     if (implementationTitle.equals(otherImplementationTitle)) {
                         return manifest;
                     }

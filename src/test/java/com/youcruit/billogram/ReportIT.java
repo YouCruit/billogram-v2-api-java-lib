@@ -24,6 +24,5 @@ public class ReportIT extends HttpIT {
     @Test
     public void foo() throws IOException {
 	final ReportSearchResponse searchResponse = reportClient.search(new Search<ReportFilterField, ReportOrderField>());
-	System.err.println(searchResponse.getData());
     }
 }

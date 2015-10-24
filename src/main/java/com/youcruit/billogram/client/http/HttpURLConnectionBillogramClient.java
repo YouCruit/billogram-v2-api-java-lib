@@ -135,7 +135,6 @@ public class HttpURLConnectionBillogramClient extends AbstractHttpClient {
 	}
 
 	private void setHeaders(HttpURLConnection connection) {
-		System.err.println(USER_AGENT);
 		connection.setRequestProperty("User-Agent", USER_AGENT);
 		connection.setRequestProperty("Accept-Charset", UTF_8);
 		connection.setRequestProperty("Accept", APPLICATION_JSON);
