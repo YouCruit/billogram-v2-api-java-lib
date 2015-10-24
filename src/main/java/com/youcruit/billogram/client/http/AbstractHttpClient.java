@@ -59,7 +59,7 @@ public abstract class AbstractHttpClient implements HttpClient {
 	}
 	try {
 	    for (String pathSegment : pathSegments) {
-		sb.append('/').append(URLEncoder.encode(pathSegment, "UTF-8"));
+		sb.append('/').append(URLEncoder.encode(pathSegment, UTF8.name()));
 	    }
 
 	    if (queryParameters.size() > 0) {
@@ -67,7 +67,7 @@ public abstract class AbstractHttpClient implements HttpClient {
 		for (Map.Entry<String, String> queryParameter : queryParameters.entrySet()) {
 		    sb.append(first ? '?' : '&');
 		    first = false;
-		    sb.append(queryParameter.getKey()).append('=').append(URLEncoder.encode(queryParameter.getValue(), "UTF-8"));
+		    sb.append(queryParameter.getKey()).append('=').append(URLEncoder.encode(queryParameter.getValue(), UTF8.name()));
 		}
 	    }
 	    return URI.create(sb.toString());
