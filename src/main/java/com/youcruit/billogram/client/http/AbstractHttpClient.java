@@ -11,6 +11,7 @@ import java.util.Map;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.youcruit.billogram.objects.request.Search;
+import com.youcruit.billogram.client.ManifestHelper;
 
 public abstract class AbstractHttpClient implements HttpClient {
 
@@ -18,6 +19,10 @@ public abstract class AbstractHttpClient implements HttpClient {
 
     protected final Gson gson;
     protected final String baseUrl;
+	public static final String IMPLEMENTATION_TITLE = "billogram-v2-api-java-lib";
+
+	public final static String VERSION = ManifestHelper.getVersion(IMPLEMENTATION_TITLE);
+	public static final String USER_AGENT = "billogram-v2-api-java-lib-" + VERSION;
 
     public AbstractHttpClient(Gson gson, String baseUrl) {
 	this.baseUrl = baseUrl == null ? API_BASE_URL : baseUrl;

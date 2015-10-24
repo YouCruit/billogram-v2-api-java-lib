@@ -13,6 +13,7 @@ import com.squareup.okhttp.Authenticator;
 import com.squareup.okhttp.Callback;
 import com.squareup.okhttp.Credentials;
 import com.squareup.okhttp.HttpUrl;
+import com.squareup.okhttp.Interceptor;
 import com.squareup.okhttp.MediaType;
 import com.squareup.okhttp.OkHttpClient;
 import com.squareup.okhttp.Request;
@@ -21,6 +22,7 @@ import com.squareup.okhttp.Response;
 import com.youcruit.billogram.client.BillogramCallback;
 import com.youcruit.billogram.exception.ApiException;
 import com.youcruit.billogram.objects.response.error.ApiError;
+import com.youcruit.billogram.objects.response.error.ErrorData;
 
 public class OkHttpBillogramClient extends AbstractHttpClient {
     public static final Logger LOGGER = Logger.getLogger(OkHttpBillogramClient.class);
@@ -41,7 +43,9 @@ public class OkHttpBillogramClient extends AbstractHttpClient {
     }
 
     private static OkHttpClient createOkClient(String username, String password) {
-	return new OkHttpClient().setAuthenticator(new BasicAuthenticator(username, password));
+	OkHttpClient okHttpClient = new OkHttpClient().setAuthenticator(new BasicAuthenticator(username, password));
+	okHttpClient.interceptors().add(new UserAgentInterceptor());
+	return okHttpClient;
     }
 
     public OkHttpBillogramClient(OkHttpClient okHttpClient, Gson gson, String apiUrl) {
@@ -131,6 +135,16 @@ public class OkHttpBillogramClient extends AbstractHttpClient {
 		    callback.onError(new IOException("Could not parse response " + responseJson));
 		}
 	    }
+	}
+    }
+
+    private static class UserAgentInterceptor implements Interceptor {
+
+	@Override
+	public Response intercept(Chain chain) throws IOException {
+	    Request originalRequest = chain.request();
+	    Request requestWithUserAgent = originalRequest.newBuilder().removeHeader("User-Agent").addHeader("User-Agent", USER_AGENT).build();
+	    return chain.proceed(requestWithUserAgent);
 	}
     }
 
