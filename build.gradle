@@ -94,6 +94,15 @@ dependencies {
 	testCompile 'junit:junit:4.10'
 }
 
+jar {
+	manifest {
+		attributes (
+			"Implementation-Title": archivesBaseName,
+			"Implementation-Version": version
+		)
+    }
+}
+
 
 uploadArchives {
 	repositories {
