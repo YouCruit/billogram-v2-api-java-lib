@@ -13,8 +13,10 @@ Logotype are NOT implemented, but should be trivial if anybody needs it.
 Using the API
 =============================
 
-The exact dependencies will in the future depend on which http-implementation you want to use,
-but for now, okhttp is the only one implemented. Implementing a new one is just a matter of implementing the
+The exact dependencies depends on which http-implementation you want to use, okhttp is faster/better and has async mode, but adds an extra
+dependency compared to HttpURLConnectionBillogramClient.
+
+Implementing another one (such as apache-httpcomponents based) is just a matter of implementing the
 two methods "sync" and "async" from AbstractHttpClient.
 
 
@@ -22,7 +24,7 @@ With Gradle
 -----------
 
         compile 'com.youcruit:billogram-v2-api-java-lib:0.99.3'
-        compile 'com.squareup.okhttp:okhttp:2.5.0'
+        compile 'com.squareup.okhttp:okhttp:2.5.0' // optional
 
 With Maven
 ----------
@@ -32,6 +34,7 @@ With Maven
                 <artifactId>billogram-v2-api-java-lib</artifactId>
                 <version>0.99.3</version>
         </dependency>
+        <!-- optional -->
         <dependency>
                 <groupId>com.squareup.okhttp</groupId>
                 <artifactId>okhttp</artifactId>
@@ -41,8 +44,11 @@ With Maven
 Creating a client
 -----------------
 
-        // The HttpClient is just for Http
-        HttpClient httpClient = new OkHttpBillogramClient(username, password);
+        // The HttpClient is just an implementation agnostic Http client
+        HttpClient httpClient;
+        httpClient = new OkHttpBillogramClient(username, password); // Needs the dependency above
+        httpClient = new HttpURLConnectionBillogramClient(username, password); // only sync (no async) and may be a bit slower
+        
         // These are for handling customers and billograms
         CustomerClient customerClient = new CustomerClient(httpClient);
         BillogramClient billogramClient = new BillogramClient(httpClient);
