@@ -136,7 +136,7 @@ public class BillogramClient extends AbstractRestClient<BillogramFilterField, Bi
 	Map<String, Object> creditRequest = new HashMap<>();
 	creditRequest.put("mode", creditMode);
 	creditRequest.put("amount", amount);
-	final URI uri = httpClient.pathToUri("billogram" + billogramId, "command", "credit");
+	final URI uri = httpClient.pathToUri("billogram", billogramId, "command", "credit");
 	return httpClient.sync(uri, creditRequest, POST, BillogramResponse.class);
     }
 
