@@ -38,7 +38,7 @@ public class Billogram extends CompactBillogram {
     private Callback callbacks = new Callback();
     @SerializedName("interest_fee")
     @Expose(serialize = false)
-    private Integer interestFee;
+    private BigDecimal interestFee;
     @Expose
     private Info info;
     @SerializedName("invoice_fee")
@@ -185,15 +185,15 @@ public class Billogram extends CompactBillogram {
 	return this;
     }
 
-    public Integer getInterestFee() {
+    public BigDecimal getInterestFee() {
 	return interestFee;
     }
 
-    public void setInterestFee(Integer interestFee) {
+    public void setInterestFee(BigDecimal interestFee) {
 	this.interestFee = interestFee;
     }
 
-    public Billogram withInterestFee(Integer interestFee) {
+    public Billogram withInterestFee(BigDecimal interestFee) {
 	this.interestFee = interestFee;
 	return this;
     }
