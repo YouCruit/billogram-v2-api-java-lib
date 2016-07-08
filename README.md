@@ -88,12 +88,6 @@ Release
 
 **Actually releasing**
 
-1. Release with gradle (builds and uploads archive)
+Release with gradle (builds, uploads, closes and relerases archive)
 
         ./gradlew release
-2. Log in to Nexus https://oss.sonatype.org/#stagingRepositories
-3. Find the uploaded repository (called "youcruit-XXXX").
-4. Click it. Close it.
-5. Wait (~ 30 sec)
-6. Release it.
-7. Done
