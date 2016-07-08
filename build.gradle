@@ -1,3 +1,9 @@
+buildscript {
+    dependencies {
+        classpath "io.codearte.gradle.nexus:gradle-nexus-staging-plugin:0.5.3"
+    }
+}
+
 plugins {
 	id 'net.researchgate.release' version '2.2.0'
 }
@@ -6,6 +12,7 @@ apply plugin: 'java'
 apply plugin: 'maven'
 apply plugin: 'maven-publish'
 apply plugin: 'signing'
+apply plugin: 'io.codearte.nexus-staging'
 
 targetCompatibility = "1.7"
 sourceCompatibility = "1.7"
@@ -146,7 +153,14 @@ uploadArchives {
 	}
 }
 
-createReleaseTag.dependsOn uploadArchives
+nexusStaging {
+    username = nexusUsername
+    password = nexusPassword
+}
+
+closeRepository.dependsOn uploadArchives
+
+createReleaseTag.dependsOn closeAndPromoteRepository
 
 checkCommitNeeded.dependsOn checkReleaseConfig
 
