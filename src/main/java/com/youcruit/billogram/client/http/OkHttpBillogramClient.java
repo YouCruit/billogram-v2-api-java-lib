@@ -6,7 +6,8 @@ import java.net.URI;
 import java.util.Collections;
 import java.util.Map;
 
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import com.google.gson.Gson;
 import com.squareup.okhttp.Authenticator;
@@ -25,7 +26,7 @@ import com.youcruit.billogram.objects.response.error.ApiError;
 import com.youcruit.billogram.objects.response.error.ErrorData;
 
 public class OkHttpBillogramClient extends AbstractHttpClient {
-    public static final Logger LOGGER = Logger.getLogger(OkHttpBillogramClient.class);
+    public static final Logger LOGGER = LogManager.getLogger(OkHttpBillogramClient.class);
 
     private final OkHttpClient client;
     private static final MediaType JSON = MediaType.parse("application/json");

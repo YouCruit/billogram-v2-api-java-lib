@@ -1,13 +1,5 @@
 package com.youcruit.billogram.client.http;
 
-import com.google.gson.Gson;
-import com.youcruit.billogram.client.BillogramCallback;
-import com.youcruit.billogram.exception.ApiException;
-import com.youcruit.billogram.objects.response.error.ApiError;
-import com.youcruit.billogram.objects.response.error.ErrorData;
-import org.apache.log4j.Logger;
-
-import javax.xml.bind.DatatypeConverter;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -20,6 +12,17 @@ import java.net.HttpURLConnection;
 import java.net.URI;
 import java.util.Scanner;
 
+import javax.xml.bind.DatatypeConverter;
+
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
+import com.google.gson.Gson;
+import com.youcruit.billogram.client.BillogramCallback;
+import com.youcruit.billogram.exception.ApiException;
+import com.youcruit.billogram.objects.response.error.ApiError;
+import com.youcruit.billogram.objects.response.error.ErrorData;
+
 public class HttpURLConnectionBillogramClient extends AbstractHttpClient {
     private static final String APPLICATION_JSON = "application/json";
 	private static final String UTF_8 = "UTF-8";
@@ -28,7 +31,7 @@ public class HttpURLConnectionBillogramClient extends AbstractHttpClient {
 	private int connectionTimeout = 10000;
 	private int requestTimeout = 10000;
 
-	private static final Logger LOGGER = Logger.getLogger(HttpURLConnectionBillogramClient.class);
+	private static final Logger LOGGER = LogManager.getLogger(HttpURLConnectionBillogramClient.class);
 
 	public HttpURLConnectionBillogramClient(String username, String password) {
 		this(username, password, null, null);
