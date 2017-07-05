@@ -277,15 +277,6 @@ public class Billogram extends CompactBillogram {
 	return deliveryMethod;
     }
 
-    public void setDeliveryMethod(DeliveryMethod deliveryMethod) {
-	this.deliveryMethod = deliveryMethod;
-    }
-
-    public Billogram withDeliveryMethod(DeliveryMethod deliveryMethod) {
-	this.deliveryMethod = deliveryMethod;
-	return this;
-    }
-
     public String getUrl() {
 	return url;
     }
