@@ -28,7 +28,6 @@ import com.youcruit.billogram.objects.request.billogram.PdfFileResponse;
 import com.youcruit.billogram.objects.response.billogram.Billogram;
 import com.youcruit.billogram.objects.response.billogram.SearchBillogram;
 import com.youcruit.billogram.objects.response.billogram.Unit;
-import com.youcruit.billogram.objects.response.common.BillogramState;
 import com.youcruit.billogram.objects.response.customer.BillogramCustomer;
 import com.youcruit.billogram.objects.response.customer.Customer;
 import com.youcruit.billogram.objects.response.item.BillogramItem;
@@ -112,13 +111,13 @@ public class BillogramIT extends HttpIT {
 	//billogramClient.command(billogram3.getId(), EMAIL, SEND);
 
 	Search<BillogramFilterField, BillogramOrderField> search = new BillogramSearch();
-	search.withFilter(FilterType.FIELD, BillogramFilterField.STATE, BillogramState.UNATTESTED.toString());
+	search.withFilter(FilterType.FIELD, BillogramFilterField.CUSTOMER_NO, customer.getCustomerNo().toString());
 	search.withOrder(SortDirection.DESCENDING, CUSTOMER_NO);
 	for(SearchBillogram result : billogramClient.search(search).getData()) {
 	    if (result.getId().equals(billogram3.getId())) {
 		return;
 	    }
 	}
-	fail("Didn not find the document " + billogram3.getId());
+	fail("Did not find the document " + billogram3.getId());
     }
 }
